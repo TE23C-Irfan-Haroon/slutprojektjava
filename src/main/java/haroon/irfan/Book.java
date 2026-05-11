@@ -1,6 +1,4 @@
-package haroon;
-
-import haroon.irfan.LibraryItem;
+package haroon.irfan;
 
 public class Book extends LibraryItem {
     private String author;
@@ -10,7 +8,7 @@ public class Book extends LibraryItem {
     public Book(String id, String title, boolean isAvailable,
                 String author, String genre, int pages) {
 
-        super(id, title, isAvailable); // 🔥 this connects to LibraryItem
+        super(id, title, isAvailable); 
 
         this.author = author;
         this.genre = genre;
