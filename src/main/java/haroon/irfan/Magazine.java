@@ -1,10 +1,5 @@
 package haroon.irfan;
 
-
-   
-
-import haroon.irfan.LibraryItem;
-
 public class Magazine extends LibraryItem {
     private String category;
     private int publishedYear;
