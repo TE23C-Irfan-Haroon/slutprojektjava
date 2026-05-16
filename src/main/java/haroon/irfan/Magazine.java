@@ -1,14 +1,17 @@
 package haroon.irfan;
-
-public class Magazine extends LibraryItem {
+/**
+ * Haroon Irfan
+ * Klassen Magazine representerar en tidning i bibliotekssystemet.
+ */
+public class Magazine extends LibraryItem implements Comparable<Magazine> {
     private String category;
     private int publishedYear;
     private int issueNumber;
 
     public Magazine(String id, String title, boolean isAvailable,
-                String category, int publishedYear, int issueNumber) {
+            String category, int publishedYear, int issueNumber) {
 
-        super(id, title, isAvailable); 
+        super(id, title, isAvailable);
 
         this.category = category;
         this.publishedYear = publishedYear;
@@ -26,6 +29,9 @@ public class Magazine extends LibraryItem {
     public int getIssueNumber() {
         return issueNumber;
     }
+
+    @Override
+    public int compareTo(Magazine otherMagazine) {
+        return this.getTitle().compareToIgnoreCase(otherMagazine.getTitle());
+    }
 }
-
-

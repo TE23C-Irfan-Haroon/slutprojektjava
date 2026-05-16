@@ -1,3 +1,8 @@
+/**
+ * Haroon Irfan
+ * Main-klassen styr programmets huvudmeny och programflöde.
+ */
+
 package haroon.irfan;
 
 import java.util.ArrayList;
@@ -16,232 +21,278 @@ public class Main {
         boolean running = true;
 
         while (running) {
-            System.out.println("\n===== Library System =====");
-            System.out.println("1. Hämta böcker");
-            System.out.println("2. Hämta tidningar");
-            System.out.println("3. Visa böcker");
-            System.out.println("4. Visa tidningar");
-            System.out.println("5. Lägg till bok");
-            System.out.println("6. Lägg till tidning");
-            System.out.println("7. Hämta användare");
-            System.out.println("8. Hämta avstängda användare");
-            System.out.println("9. lägg till användare");
-            System.out.println("10. Stäng av användare");
-            System.out.println("11. Ta bort bok");
-            System.out.println("12. Ta bort tidning");
-            System.out.println("13. Ta bort användare");
-            System.out.println("14. Ta bort avstängning");
-            System.out.println("15. Avsluta");
-            System.out.print("Välj ett alternativ: ");
+            MenuManager.showMainMenu();
 
             int choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
                 case 1:
-                    books = ApiService.fetchBooks();
-                    System.out.println("Böckerna har hämtats från servern.");
+                    MenuManager.showFetchMenu();
+                    int fetchChoice = scanner.nextInt();
+                    scanner.nextLine();
 
+                    switch (fetchChoice) {
+                        case 1:
+                            books = ApiService.fetchBooks();
+                            System.out.println("Böcker har hämtats.");
+                            break;
+
+                        case 2:
+                            magazines = ApiService.fetchMagazines();
+                            System.out.println("Tidningar har hämtats.");
+                            break;
+
+                        case 3:
+                            users = ApiService.fetchUsers();
+                            System.out.println("Användare har hämtats.");
+                            break;
+
+                        case 4:
+                            suspendedUsers = ApiService.fetchSuspendedUsers();
+                            System.out.println("Avstängda användare har hämtats.");
+                            break;
+
+                        case 5:
+                            break;
+
+                        default:
+                            System.out.println("Fel val.");
+                    }
                     break;
                 case 2:
-                    magazines = ApiService.fetchMagazines();
-                    System.out.println("Tidningar har hämtats från servern.");
+
+                    MenuManager.showDisplayMenu();
+                    int displayChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (displayChoice) {
+
+                        case 1:
+                            LibraryManager.printBooks(books);
+                            break;
+
+                        case 2:
+                            LibraryManager.printMagazines(magazines);
+                            break;
+
+                        case 3:
+                            LibraryManager.printUsers(users);
+                            break;
+
+                        case 4:
+                            LibraryManager.printSuspendedUsers(suspendedUsers);
+                            break;
+
+                        case 5:
+                            break;
+
+                        default:
+                            System.out.println("Fel val.");
+                    }
+
                     break;
                 case 3:
-                    System.out.println("\n--- Böcker ---");
-                    for (Book book : books) {
-                        System.out.println(
-                                "ID: " + book.getId() +
-                                        " | Titel: " + book.getTitle() +
-                                        " | Författare: " + book.getAuthor() +
-                                        " | Genre: " + book.getGenre() +
-                                        " | Sidor: " + book.getPages());
+
+                    MenuManager.showAddMenu();
+
+                    int addChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (addChoice) {
+
+                        case 1:
+                            Book newBook = InputManager.createBook(scanner);
+                            books.add(newBook);
+                            ApiService.addBookToServer(newBook);
+                            System.out.println("Boken har lagts till lokalt och på servern.");
+                            break;
+
+                        case 2:
+                            Magazine newMagazine = InputManager.createMagazine(scanner);
+                            magazines.add(newMagazine);
+                            ApiService.addMagazineToServer(newMagazine);
+                            System.out.println("Tidningen har lagts till lokalt och på servern.");
+                            break;
+
+                        case 3:
+                            User newUser = InputManager.createUser(scanner);
+                            users.add(newUser);
+                            ApiService.addUserToServer(newUser);
+                            System.out.println("Användaren har lagts till lokalt och på servern.");
+                            break;
+
+                        case 4:
+                            SuspendedUser suspendedUser = InputManager.createSuspendedUser(scanner);
+                            suspendedUsers.add(suspendedUser);
+                            ApiService.addSuspendedUserToServer(suspendedUser);
+                            System.out.println("Användaren har blivit avstängd.");
+                            break;
+
+                        case 5:
+                            break;
+
+                        default:
+                            System.out.println("Fel val.");
                     }
+
                     break;
                 case 4:
-                    System.out.println("\n--- Magazines ---");
-                    for (Magazine magazine : magazines) {
-                        System.out.println(magazine.getTitle() + " - " + magazine.getCategory());
-                    }
-                    break;
 
-                case 5:
-                    System.out.print("Titel: ");
-                    String bookTitle = scanner.nextLine();
+                    MenuManager.showDeleteMenu();
 
-                    System.out.print("Författare: ");
-                    String author = scanner.nextLine();
-
-                    System.out.print("Genre: ");
-                    String genre = scanner.nextLine();
-
-                    System.out.print("Antal sidor: ");
-                    int pages = scanner.nextInt();
+                    int deleteChoice = scanner.nextInt();
                     scanner.nextLine();
 
-                    Book newBook = new Book("local", bookTitle, true, author, genre, pages);
-                    books.add(newBook);
-                    ApiService.addBookToServer(newBook);
+                    switch (deleteChoice) {
 
-                    System.out.println("Boken har lagts till.");
+                        case 1:
+                            System.out.print("Ange bok-id: ");
+                            String bookId = scanner.nextLine();
+
+                            if (ApiService.deleteBookFromServer(bookId)) {
+                                books.removeIf(book -> book.getId().equals(bookId));
+                                System.out.println("Boken har tagits bort lokalt och på servern.");
+                            }
+                            break;
+
+                        case 2:
+                            System.out.print("Ange tidnings-id: ");
+                            String magazineId = scanner.nextLine();
+
+                            if (ApiService.deleteMagazineFromServer(magazineId)) {
+                                magazines.removeIf(magazine -> magazine.getId().equals(magazineId));
+                                System.out.println("Tidningen har tagits bort lokalt och på servern.");
+                            }
+                            break;
+
+                        case 3:
+                            System.out.print("Ange användar-id: ");
+                            String userId = scanner.nextLine();
+
+                            if (ApiService.deleteUserFromServer(userId)) {
+                                users.removeIf(user -> user.getId().equals(userId));
+                                System.out.println("Användaren har tagits bort lokalt och på servern.");
+                            }
+                            break;
+
+                        case 4:
+                            System.out.print("Ange avstängnings-id: ");
+                            String suspendedId = scanner.nextLine();
+
+                            if (ApiService.deleteSuspendedUserFromServer(suspendedId)) {
+                                suspendedUsers.removeIf(suspendedUser -> suspendedUser.getId().equals(suspendedId));
+                                System.out.println("Avstängningen har tagits bort lokalt och på servern.");
+                            }
+                            break;
+
+                        case 5:
+                            break;
+
+                        default:
+                            System.out.println("Fel val.");
+                    }
+
+                    break;
+                case 5:
+
+                    MenuManager.showSearchMenu();
+
+                    int searchChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (searchChoice) {
+
+                        case 1:
+
+                            System.out.print("Ange titel på boken: ");
+                            String bookTitle = scanner.nextLine();
+
+                            LibraryManager.searchAndPrintBook(books, bookTitle);
+
+                            break;
+
+                        case 2:
+
+                            System.out.print("Ange titel på tidningen: ");
+                            String magazineTitle = scanner.nextLine();
+
+                            LibraryManager.searchAndPrintMagazine(magazines, magazineTitle);
+
+                            break;
+
+                        case 3:
+
+                            System.out.print("Ange email: ");
+                            String email = scanner.nextLine();
+
+                            LibraryManager.searchAndPrintUser(users, email);
+
+                            break;
+                        case 4:
+                            break;
+
+                        default:
+                            System.out.println("Fel val.");
+                    }
+
                     break;
                 case 6:
-                    System.out.print("Titel: ");
-                    String magazineTitle = scanner.nextLine();
 
-                    System.out.print("Kategori: ");
-                    String category = scanner.nextLine();
+                    MenuManager.showSortMenu();
 
-                    System.out.print("Publiceringsår: ");
-                    int year = scanner.nextInt();
-
-                    System.out.print("Nummer: ");
-                    int issueNumber = scanner.nextInt();
+                    int sortChoice = scanner.nextInt();
                     scanner.nextLine();
 
-                    Magazine newMagazine = new Magazine("local", magazineTitle, true, category, year, issueNumber);
-                    magazines.add(newMagazine);
-                    ApiService.addMagazineToServer(newMagazine);
+                    switch (sortChoice) {
 
-                    System.out.println("Tidningen har lagts till.");
+                        case 1:
+                            LibraryManager.sortBooks(books);
+                            LibraryManager.printBooks(books);
+                            System.out.println("Böcker sorterade efter titel.");
+                            break;
+
+                        case 2:
+                            LibraryManager.sortMagazines(magazines);
+                            LibraryManager.printMagazines(magazines);
+                            System.out.println("Tidningar sorterade efter titel.");
+                            break;
+
+                        case 3:
+                            LibraryManager.sortUsers(users);
+                            LibraryManager.printUsers(users);
+                            System.out.println("Användare sorterade efter namn.");
+                            break;
+
+                        case 4:
+                            break;
+
+                        default:
+                            System.out.println("Fel val.");
+                    }
+
                     break;
                 case 7:
-                    users = ApiService.fetchUsers();
-                    System.out.println("Användare har hämtats från servern.");
-                    break;
-                case 8:
-                    suspendedUsers = ApiService.fetchSuspendedUsers();
-                    System.out.println("Avstängda användare har hämtats från servern.");
-                    break;
-                case 9:
-                    System.out.print("Namn: ");
-                    String name = scanner.nextLine();
-
-                    System.out.print("Email: ");
-                    String email = scanner.nextLine();
-
-                    User newUser = new User("local", name, email);
-
-                    users.add(newUser);
-                    ApiService.addUserToServer(newUser);
-
-                    System.out.println("Användaren har lagts till.");
-                    break;
-                case 10:
-                    System.out.print("User ID: ");
-                    String userId = scanner.nextLine();
-
-                    System.out.print("Orsak: ");
-                    String reason = scanner.nextLine();
-
-                    SuspendedUser suspendedUser = new SuspendedUser("local", userId, reason);
-
-                    suspendedUsers.add(suspendedUser);
-
-                    ApiService.addSuspendedUserToServer(suspendedUser);
-
-                    System.out.println("Användaren har blivit avstängd.");
-                    break;
-                case 11:
-                    System.out.print("Ange id på boken som ska tas bort: ");
-                    String bookId = scanner.nextLine();
-
-                    boolean deletedBook = ApiService.deleteBookFromServer(bookId);
-
-                    if (deletedBook) {
-                        books.removeIf(book -> book.getId().equals(bookId));
-                    }
-
-                    break;
-                case 12:
-
-                    System.out.print("Ange tidnings-id: ");
-                    String deleteMagazineId = scanner.nextLine();
-
-                    boolean deletedMagazine = ApiService.deleteMagazineFromServer(deleteMagazineId);
-
-                    if (deletedMagazine) {
-                        magazines.removeIf(magazine -> magazine.getId().equals(deleteMagazineId));
-                    }
-
-                    break;
-                case 13:
 
                     System.out.print("Ange användar-id: ");
-                    String deleteUserId = scanner.nextLine();
+                    String borrowUserId = scanner.nextLine();
 
-                    boolean deletedUser = ApiService.deleteUserFromServer(deleteUserId);
+                    boolean canBorrow = LibraryManager.canUserBorrow(
+                            borrowUserId,
+                            suspendedUsers);
 
-                    if (deletedUser) {
-                        users.removeIf(user -> user.getId().equals(deleteUserId));
-                    }
-
-                    break;
-                case 14:
-
-                    System.out.print("Ange avstängnings-id: ");
-                    String deleteSuspendedId = scanner.nextLine();
-
-                    boolean deletedSuspended = ApiService.deleteSuspendedUserFromServer(deleteSuspendedId);
-
-                    if (deletedSuspended) {
-                        suspendedUsers.removeIf(user -> user.getId().equals(deleteSuspendedId));
-                    }
-
-                    break;
-                case 15:
-                    System.out.print("Ange titel på boken: ");
-                    String searchBookTitle = scanner.nextLine();
-
-                    Book foundBook = LibraryManager.findBookByTitle(books, searchBookTitle);
-                    if (foundBook != null) {
-                        System.out.println("Bok hittad:");
-                        System.out.println("ID: " + foundBook.getId());
-                        System.out.println("Titel: " + foundBook.getTitle());
-                        System.out.println("Författare: " + foundBook.getAuthor());
-                        System.out.println("Genre: " + foundBook.getGenre());
-                        System.out.println("Sidor: " + foundBook.getPages());
+                    if (canBorrow) {
+                        System.out.println("Användaren får låna.");
                     } else {
-                        System.out.println("Ingen bok hittades med den titeln.");
+                        System.out.println("Användaren får inte låna.");
                     }
+
                     break;
-                case 16:
-                    System.out.print("Ange titel på tidningen: ");
-                    String searchMagazineTitle = scanner.nextLine();
-
-                    Magazine foundMagazine = LibraryManager.findMagazineByTitle(magazines, searchMagazineTitle);
-
-                    if (foundMagazine != null) {
-                        System.out.println("Tidning hittad:");
-                        System.out.println("ID: " + foundMagazine.getId());
-                        System.out.println("Titel: " + foundMagazine.getTitle());
-                        System.out.println("Kategori: " + foundMagazine.getCategory());
-                        System.out.println("Publiceringsår: " + foundMagazine.getPublishedYear());
-                        System.out.println("Nummer: " + foundMagazine.getIssueNumber());
-                    } else {
-                        System.out.println("Ingen tidning hittades med den titeln.");
-                    }
-                    break;
-                case 17:
-                    System.out.print("Ange email: ");
-                    String searchEmail = scanner.nextLine();
-
-                    User foundUser = LibraryManager.findUserByEmail(users, searchEmail);
-
-                    if (foundUser != null) {
-                        System.out.println("Användare hittad:");
-                        System.out.println("ID: " + foundUser.getId());
-                        System.out.println("Namn: " + foundUser.getName());
-                        System.out.println("Email: " + foundUser.getEmail());
-                    } else {
-                        System.out.println("Ingen användare hittades med den emailen.");
-                    }
-                    break;
-                case 18:
+                
+                case 8:
                     running = false;
                     System.out.println("Programmet avslutas.");
                     break;
-
             }
         }
         scanner.close();

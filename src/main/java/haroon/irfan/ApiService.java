@@ -1,4 +1,8 @@
 package haroon.irfan;
+/**
+ * Haroon Irfan
+ * Klassen ApiService hanterar kommunikationen med servern.
+ */
 
 import com.google.gson.Gson;
 import java.io.InputStreamReader;
@@ -11,6 +15,7 @@ public class ApiService {
 
     private static final String BASE_URL = "http://10.151.168.5:3108";
 
+    // Hämtar alla böcker från servern och gör om JSON till Book-objekt.
     public static ArrayList<Book> fetchBooks() {
         try {
             URL url = new URL(BASE_URL + "/books");
@@ -33,6 +38,7 @@ public class ApiService {
         }
     }
 
+    // Hämtar alla tidningar från servern och gör om JSON till Magazine-objekt.
     public static ArrayList<Magazine> fetchMagazines() {
         try {
             URL url = new URL(BASE_URL + "/magazines");
@@ -55,6 +61,7 @@ public class ApiService {
         }
     }
 
+    // Hämtar alla användare från servern.
     public static ArrayList<User> fetchUsers() {
         try {
             URL url = new URL(BASE_URL + "/users");
@@ -77,6 +84,7 @@ public class ApiService {
         }
     }
 
+    // Hämtar alla avstängda användare från servern.
     public static ArrayList<SuspendedUser> fetchSuspendedUsers() {
         try {
             URL url = new URL(BASE_URL + "/suspendedUsers");
@@ -99,6 +107,7 @@ public class ApiService {
         }
     }
 
+    // Skickar en ny bok till servern med POST-request.
     public static void addBookToServer(Book book) {
         try {
             URL url = new URL(BASE_URL + "/books");
@@ -127,6 +136,7 @@ public class ApiService {
         }
     }
 
+    // Skickar en ny tidning till servern med POST-request.
     public static void addMagazineToServer(Magazine magazine) {
         try {
             URL url = new URL(BASE_URL + "/magazines");
@@ -155,6 +165,7 @@ public class ApiService {
         }
     }
 
+    // Skickar en ny användare till servern med POST-request.
     public static void addUserToServer(User user) {
         try {
             URL url = new URL(BASE_URL + "/users");
@@ -183,6 +194,7 @@ public class ApiService {
         }
     }
 
+    // Skickar en ny avstängning till servern med POST-request.
     public static void addSuspendedUserToServer(SuspendedUser suspendedUser) {
         try {
             URL url = new URL(BASE_URL + "/suspendedUsers");
@@ -211,6 +223,7 @@ public class ApiService {
         }
     }
 
+    // Tar bort en bok från servern med DELETE-request.
     public static boolean deleteBookFromServer(String id) {
         try {
             URL url = new URL(BASE_URL + "/books/" + id);
@@ -230,10 +243,11 @@ public class ApiService {
         }
     }
 
+    // Tar bort en tidning från servern med DELETE-request.
     public static boolean deleteMagazineFromServer(String id) {
         try {
             URL url = new URL(BASE_URL + "/magazines/" + id);
-            
+
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("DELETE");
@@ -249,6 +263,7 @@ public class ApiService {
         }
     }
 
+    // Tar bort en användare från servern med DELETE-request.
     public static boolean deleteUserFromServer(String id) {
         try {
             URL url = new URL(BASE_URL + "/users/" + id);
@@ -268,6 +283,7 @@ public class ApiService {
         }
     }
 
+    // Tar bort en avstängning från servern med DELETE-request.
     public static boolean deleteSuspendedUserFromServer(String id) {
         try {
             URL url = new URL(BASE_URL + "/suspendedUsers/" + id);
