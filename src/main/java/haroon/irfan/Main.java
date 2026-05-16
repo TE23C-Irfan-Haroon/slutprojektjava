@@ -17,6 +17,7 @@ public class Main {
         ArrayList<Magazine> magazines = new ArrayList<>();
         ArrayList<User> users = new ArrayList<>();
         ArrayList<SuspendedUser> suspendedUsers = new ArrayList<>();
+        ArrayList<Media> mediaList = new ArrayList<>();
 
         boolean running = true;
 
@@ -54,6 +55,11 @@ public class Main {
                             break;
 
                         case 5:
+                            mediaList = ApiService.fetchMedia();
+                            System.out.println("Media har hämtats från servern.");
+                            break;
+
+                        case 6:
                             break;
 
                         default:
@@ -85,6 +91,10 @@ public class Main {
                             break;
 
                         case 5:
+                            LibraryManager.printMedia(mediaList);
+                            break;
+
+                        case 6:
                             break;
 
                         default:
@@ -288,7 +298,7 @@ public class Main {
                     }
 
                     break;
-                
+
                 case 8:
                     running = false;
                     System.out.println("Programmet avslutas.");

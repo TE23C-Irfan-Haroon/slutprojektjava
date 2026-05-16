@@ -1,4 +1,5 @@
 package haroon.irfan;
+
 /**
  * Haroon Irfan
  * Klassen LibraryManager hanterar sökning, sortering och annan logik.
@@ -101,6 +102,13 @@ public class LibraryManager {
         }
     }
 
+    // Skriver ut alla media-objekt med polymorfism.
+    public static void printMedia(ArrayList<Media> mediaList) {
+        for (Media media : mediaList) {
+            System.out.println(media.getInfo());
+        }
+    }
+
     // Skriver ut alla användare i listan.
     public static void printUsers(ArrayList<User> users) {
 
@@ -179,4 +187,5 @@ public class LibraryManager {
             System.out.println("Ingen användare hittades.");
         }
     }
+
 }

@@ -1,4 +1,5 @@
 package haroon.irfan;
+
 /**
  * Haroon Irfan
  * Klassen MenuManager visar programmets menyer och undermenyer.
@@ -28,7 +29,8 @@ public class MenuManager {
         System.out.println("2. Hämta tidningar");
         System.out.println("3. Hämta användare");
         System.out.println("4. Hämta avstängda användare");
-        System.out.println("5. Tillbaka");
+        System.out.println("5. Hämta media");
+        System.out.println("6. Tillbaka");
         System.out.print("Välj ett alternativ: ");
     }
 
@@ -39,7 +41,8 @@ public class MenuManager {
         System.out.println("2. Visa tidningar");
         System.out.println("3. Visa användare");
         System.out.println("4. Visa avstängda användare");
-        System.out.println("5. Tillbaka");
+        System.out.println("5. Visa media");
+        System.out.println("6. Tillbaka");
         System.out.print("Välj ett alternativ: ");
     }
 

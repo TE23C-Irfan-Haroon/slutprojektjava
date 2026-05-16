@@ -10,6 +10,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class ApiService {
 
@@ -302,5 +306,56 @@ public class ApiService {
             return false;
         }
     }
+
+    // Hämtar media från servern och skapar rätt objekt beroende på type.
+public static ArrayList<Media> fetchMedia() {
+    ArrayList<Media> mediaList = new ArrayList<>();
+
+    try {
+        URL url = new URL(BASE_URL + "/media");
+
+        HttpURLConnection connection =
+                (HttpURLConnection) url.openConnection();
+
+        connection.setRequestMethod("GET");
+
+        InputStreamReader reader =
+                new InputStreamReader(connection.getInputStream());
+
+        JsonArray jsonArray = JsonParser.parseReader(reader).getAsJsonArray();
+
+        for (JsonElement element : jsonArray) {
+            JsonObject object = element.getAsJsonObject();
+
+            String id = object.get("id").getAsString();
+            String type = object.get("type").getAsString();
+            String title = object.get("title").getAsString();
+            boolean isAvailable = object.get("isAvailable").getAsBoolean();
+
+            if (type.equalsIgnoreCase("game")) {
+                String genre = object.get("genre").getAsString();
+                int age = object.get("age").getAsInt();
+
+                mediaList.add(new Game(id, type, title, genre, age, isAvailable));
+
+            } else if (type.equalsIgnoreCase("movie")) {
+                String genre = object.get("genre").getAsString();
+                int minutes = object.get("minutes").getAsInt();
+
+                mediaList.add(new Movie(id, type, title, genre, minutes, isAvailable));
+
+            } else if (type.equalsIgnoreCase("music_album")) {
+                String artist = object.get("artist").getAsString();
+
+                mediaList.add(new MusicAlbum(id, type, title, artist, isAvailable));
+            }
+        }
+
+    } catch (Exception e) {
+        System.out.println("Fel vid hämtning av media.");
+    }
+
+    return mediaList;
+}
 
 }
