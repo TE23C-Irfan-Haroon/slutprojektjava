@@ -17,7 +17,8 @@ public class MenuManager {
         System.out.println("5. Sök");
         System.out.println("6. Sortera");
         System.out.println("7. Kontrollera lån");
-        System.out.println("8. Avsluta");
+        System.out.println("8. Utlåning");
+        System.out.println("9. Avsluta");
         System.out.print("Välj ett alternativ: ");
     }
 
@@ -85,6 +86,19 @@ public class MenuManager {
         System.out.println("2. Sortera tidningar efter titel");
         System.out.println("3. Sortera användare efter namn");
         System.out.println("4. Tillbaka");
+        System.out.print("Välj ett alternativ: ");
+    }
+
+    // Visar undermeny för utlåning och återlämning.
+    public static void showLoanMenu() {
+        System.out.println("\n--- Utlåning ---");
+        System.out.println("1. Låna bok");
+        System.out.println("2. Låna tidning");
+        System.out.println("3. Låna media");
+        System.out.println("4. Lämna tillbaka bok");
+        System.out.println("5. Lämna tillbaka tidning");
+        System.out.println("6. Lämna tillbaka media");
+        System.out.println("7. Tillbaka");
         System.out.print("Välj ett alternativ: ");
     }
 }

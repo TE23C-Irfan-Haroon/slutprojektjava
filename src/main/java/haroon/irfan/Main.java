@@ -18,6 +18,7 @@ public class Main {
         ArrayList<User> users = new ArrayList<>();
         ArrayList<SuspendedUser> suspendedUsers = new ArrayList<>();
         ArrayList<Media> mediaList = new ArrayList<>();
+        ArrayList<Loan> loans = new ArrayList<>();
 
         boolean running = true;
 
@@ -298,8 +299,75 @@ public class Main {
                     }
 
                     break;
-
                 case 8:
+
+                    MenuManager.showLoanMenu();
+
+                    int loanChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (loanChoice) {
+
+                        case 1:
+                            System.out.print("Ange användar-id: ");
+                            String bookUserId = scanner.nextLine();
+
+                            System.out.print("Ange bok-id: ");
+                            String bookId = scanner.nextLine();
+
+                            LoanManager.borrowBook(bookUserId, bookId, books, loans);
+                            break;
+
+                        case 2:
+                            System.out.print("Ange användar-id: ");
+                            String magazineUserId = scanner.nextLine();
+
+                            System.out.print("Ange tidnings-id: ");
+                            String magazineId = scanner.nextLine();
+
+                            LoanManager.borrowMagazine(magazineUserId, magazineId, magazines, loans);
+                            break;
+
+                        case 3:
+                            System.out.print("Ange användar-id: ");
+                            String mediaUserId = scanner.nextLine();
+
+                            System.out.print("Ange media-id: ");
+                            String mediaId = scanner.nextLine();
+
+                            LoanManager.borrowMedia(mediaUserId, mediaId, mediaList, loans);
+                            break;
+
+                        case 4:
+                            System.out.print("Ange bok-id: ");
+                            String returnBookId = scanner.nextLine();
+
+                            LoanManager.returnBook(returnBookId, books, loans);
+                            break;
+
+                        case 5:
+                            System.out.print("Ange tidnings-id: ");
+                            String returnMagazineId = scanner.nextLine();
+
+                            LoanManager.returnMagazine(returnMagazineId, magazines, loans);
+                            break;
+
+                        case 6:
+                            System.out.print("Ange media-id: ");
+                            String returnMediaId = scanner.nextLine();
+
+                            LoanManager.returnMedia(returnMediaId, mediaList, loans);
+                            break;
+
+                        case 7:
+                            break;
+
+                        default:
+                            System.out.println("Fel val.");
+                    }
+
+                    break;
+                case 9:
                     running = false;
                     System.out.println("Programmet avslutas.");
                     break;
