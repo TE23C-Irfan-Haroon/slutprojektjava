@@ -8,14 +8,12 @@ import haroon.irfan.model.*;
 import haroon.irfan.service.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import haroon.irfan.service.ApiService;
 
 /**
  * Haroon Irfan
  * Klassen LoanManager hanterar utlåning och återlämning av objekt.
  */
 public class LoanManager implements FileStorage {
-
 
     /**
      * Lånar en bok om den är tillgänglig.
@@ -46,7 +44,6 @@ public class LoanManager implements FileStorage {
         System.out.println("Boken hittades inte.");
     }
 
-    
     /**
      * Lämnar tillbaka en bok och tar bort lånet.
      *
@@ -71,7 +68,14 @@ public class LoanManager implements FileStorage {
         System.out.println("Boken hittades inte.");
     }
 
-    // Lånar en tidning om den är tillgänglig.
+    /**
+     * Lånar ut en tidning om den är tillgänglig.
+     *
+     * @param userId     användarens id
+     * @param magazineId tidningens id
+     * @param magazines  lista med tidningar
+     * @param loans      lista med lån
+     */
     public static void borrowMagazine(String userId, String magazineId, ArrayList<Magazine> magazines,
             ArrayList<Loan> loans) {
 
@@ -118,7 +122,14 @@ public class LoanManager implements FileStorage {
         System.out.println("Tidningen hittades inte.");
     }
 
-    // Lånar media om objektet är tillgängligt.
+    /**
+     * Lånar ut media om det är tillgängligt.
+     *
+     * @param userId    användarens id
+     * @param mediaId   mediaobjektets id
+     * @param mediaList lista med media
+     * @param loans     lista med lån
+     */
     public static void borrowMedia(String userId, String mediaId, ArrayList<Media> mediaList, ArrayList<Loan> loans) {
 
         for (Media media : mediaList) {
@@ -164,7 +175,6 @@ public class LoanManager implements FileStorage {
         System.out.println("Media hittades inte.");
     }
 
-   
     /**
      * Sparar alla lån till en JSON-fil.
      *
@@ -185,7 +195,6 @@ public class LoanManager implements FileStorage {
         }
     }
 
-    
     /**
      * Läser in lån från JSON-fil när programmet startar.
      *

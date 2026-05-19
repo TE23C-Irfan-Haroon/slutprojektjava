@@ -10,6 +10,14 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Klassen SubMenuHandler hanterar programmets
+ * undermenyer och användarval.
+ *
+ * @author Haroon Irfan
+ * @version 1.0
+ * @since 2026
+ */
 public class SubMenuHandler {
 
     public static void handleFetchMenu(int fetchChoice, LibraryData data) {
@@ -44,7 +52,8 @@ public class SubMenuHandler {
                 break;
 
             default:
-                System.out.println("Fel val.");
+                System.out.println("Fel val. Välj ett av alternativen i menyn.");
+                break;
         }
     }
 
@@ -76,7 +85,8 @@ public class SubMenuHandler {
                 break;
 
             default:
-                System.out.println("Fel val.");
+                System.out.println("Fel val. Välj ett av alternativen i menyn.");
+                break;
         }
 
     }
@@ -113,7 +123,8 @@ public class SubMenuHandler {
                 break;
 
             default:
-                System.out.println("Fel val.");
+                System.out.println("Fel val. Välj ett av alternativen i menyn.");
+                break;
         }
     }
 
@@ -160,7 +171,8 @@ public class SubMenuHandler {
                 break;
 
             default:
-                System.out.println("Fel val.");
+                System.out.println("Fel val. Välj ett av alternativen i menyn.");
+                break;
         }
 
     }
@@ -198,7 +210,8 @@ public class SubMenuHandler {
                 break;
 
             default:
-                System.out.println("Fel val.");
+                System.out.println("Fel val. Välj ett av alternativen i menyn.");
+                break;
         }
 
     }
@@ -229,7 +242,8 @@ public class SubMenuHandler {
                 break;
 
             default:
-                System.out.println("Fel val.");
+                System.out.println("Fel val. Välj ett av alternativen i menyn.");
+                break;
         }
     }
 
@@ -297,7 +311,8 @@ public class SubMenuHandler {
                 break;
 
             default:
-                System.out.println("Fel val.");
+                System.out.println("Fel val. Välj ett av alternativen i menyn.");
+                break;
         }
 
     }
@@ -359,7 +374,8 @@ public class SubMenuHandler {
                 break;
 
             default:
-                System.out.println("Fel val.");
+                System.out.println("Fel val. Välj ett av alternativen i menyn.");
+                break;
         }
     }
 }

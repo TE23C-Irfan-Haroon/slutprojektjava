@@ -46,6 +46,12 @@ public class Book extends LibraryItem implements Comparable<Book> {
         return pages;
     }
 
+    /**
+     * Jämför böcker baserat på titel.
+     *
+     * @param otherBook boken som jämförs
+     * @return resultatet av jämförelsen
+     */
     @Override
     public int compareTo(Book otherBook) {
         return this.getTitle().compareToIgnoreCase(otherBook.getTitle());

@@ -41,6 +41,12 @@ public class User implements Comparable<User> {
         return email;
     }
 
+    /**
+     * Jämför användare baserat på namn.
+     *
+     * @param otherUser användaren som jämförs
+     * @return resultatet av jämförelsen
+     */
     @Override
     public int compareTo(User otherUser) {
         return this.name.compareToIgnoreCase(otherUser.name);

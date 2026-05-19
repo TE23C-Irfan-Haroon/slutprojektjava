@@ -46,6 +46,12 @@ public class Magazine extends LibraryItem implements Comparable<Magazine> {
         return issueNumber;
     }
 
+    /**
+     * Jämför tidningar baserat på titel.
+     *
+     * @param otherMagazine tidningen som jämförs
+     * @return resultatet av jämförelsen
+     */
     @Override
     public int compareTo(Magazine otherMagazine) {
         return this.getTitle().compareToIgnoreCase(otherMagazine.getTitle());

@@ -5,7 +5,7 @@ package haroon.irfan.model;
  *
  * @author Haroon Irfan
  * @version 1.0
- * @since 2025
+ * @since 2026
  */
 public abstract class Media {
 

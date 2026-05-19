@@ -25,7 +25,7 @@ import haroon.irfan.model.User;
  *
  * @author Haroon Irfan
  * @version 1.0
- * @since 2025
+ * @since 2026
  */
 public class ApiService {
 
@@ -186,7 +186,11 @@ public class ApiService {
         return mediaList;
     }
 
-    // Skickar en ny bok till servern med POST-request.
+    /**
+     * Lägger till en bok på servern med POST-metoden.
+     *
+     * @param book boken som ska skickas till servern
+     */
     public static void addBookToServer(Book book) {
         try {
             URL url = new URL(BASE_URL + "/books");
@@ -216,7 +220,11 @@ public class ApiService {
         }
     }
 
-    // Skickar en ny tidning till servern med POST-request.
+    /**
+     * Lägger till en tidning på servern med POST-metoden.
+     *
+     * @param magazine tidningen som ska skickas till servern
+     */
     public static void addMagazineToServer(Magazine magazine) {
         try {
             URL url = new URL(BASE_URL + "/magazines");
@@ -245,7 +253,11 @@ public class ApiService {
         }
     }
 
-    // Skickar en ny användare till servern med POST-request.
+    /**
+     * Lägger till en användare på servern med POST-metoden.
+     *
+     * @param user användaren som ska skickas till servern
+     */
     public static void addUserToServer(User user) {
         try {
             URL url = new URL(BASE_URL + "/users");
@@ -274,7 +286,11 @@ public class ApiService {
         }
     }
 
-    // Skickar en ny avstängning till servern med POST-request.
+    /**
+     * Lägger till en avstängd användare på servern.
+     *
+     * @param suspendedUser användaren som ska skickas till servern
+     */
     public static void addSuspendedUserToServer(SuspendedUser suspendedUser) {
         try {
             URL url = new URL(BASE_URL + "/suspended");
@@ -431,6 +447,11 @@ public class ApiService {
         }
     }
 
+    /**
+     * Uppdaterar en tidning på servern med hjälp av PUT-metoden.
+     *
+     * @param magazine tidningen som ska uppdateras
+     */
     public static void updateMagazineOnServer(Magazine magazine) {
         try {
             URL url = new URL(BASE_URL + "/magazines/" + magazine.getId());
@@ -459,6 +480,11 @@ public class ApiService {
         }
     }
 
+    /**
+     * Uppdaterar media på servern med hjälp av PUT-metoden.
+     *
+     * @param media mediaobjektet som ska uppdateras
+     */
     public static void updateMediaOnServer(Media media) {
         try {
             URL url = new URL(BASE_URL + "/media/" + media.getId());

@@ -1,7 +1,7 @@
 -J-Duser.language=
 -J-Duser.country=
 @options
-@argfile
+@packages
 --no-fonts
 -classpath
 'C:/Users/haroon.irfan/.m2/repository/com/google/code/gson/gson/2.14.0/gson-2.14.0.jar;C:/Users/haroon.irfan/.m2/repository/com/google/errorprone/error_prone_annotations/2.48.0/error_prone_annotations-2.48.0.jar'
@@ -27,39 +27,24 @@
 -version
 -windowtitle
 'slutprojektjava 1.0-SNAPSHOT API'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/manager/InputManager.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/manager/LibraryManager.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/manager/LoanManager.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/manager/StreamManager.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/model/Book.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/model/Game.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/model/LibraryData.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/model/LibraryItem.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/model/Loan.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/model/Magazine.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/model/Media.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/model/Movie.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/model/MusicAlbum.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/model/SuspendedUser.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/model/User.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/service/ApiService.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/service/FileStorage.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/ui/Main.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/ui/MenuManager.java'
-'C:/Users/haroon.irfan/Documents/Javaprojekt/slutprojektjava/src/main/java/haroon/irfan/ui/SubMenuHandler.java'
+haroon.irfan.manager
+haroon.irfan.model
+haroon.irfan.service
+haroon.irfan.ui
 C:\Users\haroon.irfan\.m2\repository\com\google\code\gson\gson\2.14.0\gson-2.14.0.jar = 1777373250222
 C:\Users\haroon.irfan\.m2\repository\com\google\errorprone\error_prone_annotations\2.48.0\error_prone_annotations-2.48.0.jar = 1777373251047
 C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\src\main\java = 1777372844723
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\allclasses-index.html = 1779132099525
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\allpackages-index.html = 1779132099532
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\element-list = 1779132099360
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\help-doc.html = 1779132099582
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\index-all.html = 1779132099569
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\index.html = 1779132099576
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\member-search-index.js = 1779132099544
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\module-search-index.js = 1779132099535
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\overview-tree.html = 1779132099494
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\package-search-index.js = 1779132099538
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\search.html = 1779132099573
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\tag-search-index.js = 1779132099546
-C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\type-search-index.js = 1779132099541
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\allclasses-index.html = 1779224498620
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\allpackages-index.html = 1779224498622
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\element-list = 1779224498372
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\help-doc.html = 1779224498663
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\index-all.html = 1779224498652
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\index.html = 1779224498594
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\member-search-index.js = 1779224498628
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\module-search-index.js = 1779224498624
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\overview-summary.html = 1779224498658
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\overview-tree.html = 1779224498587
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\package-search-index.js = 1779224498625
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\search.html = 1779224498656
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\tag-search-index.js = 1779224498629
+C:\Users\haroon.irfan\Documents\Javaprojekt\slutprojektjava\target\reports\apidocs\type-search-index.js = 1779224498626

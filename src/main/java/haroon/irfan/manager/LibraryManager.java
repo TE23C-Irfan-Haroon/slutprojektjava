@@ -1,9 +1,5 @@
 package haroon.irfan.manager;
 
-/**
- * Haroon Irfan
- * Klassen LibraryManager hanterar sökning, sortering och annan logik.
- */
 import java.util.ArrayList;
 import java.util.Collections;
 import haroon.irfan.model.*;
@@ -12,9 +8,23 @@ import java.util.Map;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Klassen LibraryManager hanterar sökning,
+ * sortering och kontroll av bibliotekets objekt.
+ *
+ * @author Haroon Irfan
+ * @version 1.0
+ * @since 2026
+ */
 public class LibraryManager {
 
-    // Söker efter en bok med hjälp av titel.
+    /**
+     * Söker efter en bok via titel.
+     *
+     * @param books lista med böcker
+     * @param title bokens titel
+     * @return hittad bok eller null
+     */
     public static Book findBookByTitle(ArrayList<Book> books, String title) {
 
         for (Book book : books) {
@@ -70,7 +80,13 @@ public class LibraryManager {
         Collections.sort(users);
     }
 
-    // Kontrollerar om en användare får låna eller inte.
+    /**
+     * Kontrollerar om en användare får låna böcker.
+     *
+     * @param userId         användarens id
+     * @param suspendedUsers lista med avstängda användare
+     * @return true om användaren får låna, annars false
+     */
     public static boolean canUserBorrow(String userId, ArrayList<SuspendedUser> suspendedUsers) {
         for (SuspendedUser suspendedUser : suspendedUsers) {
             if (suspendedUser.getUserId().equals(userId)) {

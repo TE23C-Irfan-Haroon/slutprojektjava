@@ -13,7 +13,7 @@ import haroon.irfan.service.*;
  *
  * @author Haroon Irfan
  * @version 1.0
- * @since 2025
+ * @since 2026
  */
 public class Main {
     public static void main(String[] args) {
@@ -43,7 +43,7 @@ public class Main {
                     MenuManager.showDisplayMenu();
                     int displayChoice = InputManager.readInt(scanner);
                     SubMenuHandler.handleDisplayMenu(displayChoice, data);
-                    
+
                     break;
                 case 3:
 
@@ -64,7 +64,7 @@ public class Main {
                     MenuManager.showSearchMenu();
                     int searchChoice = InputManager.readInt(scanner);
                     SubMenuHandler.handleSearchMenu(searchChoice, scanner, data);
-                   
+
                     break;
                 case 6:
 
@@ -99,11 +99,15 @@ public class Main {
                     MenuManager.showStreamMenu();
                     int streamChoice = InputManager.readInt(scanner);
                     SubMenuHandler.handleStreamMenu(streamChoice, scanner, data);
-                    
+
                     break;
                 case 10:
                     running = false;
                     System.out.println("Programmet avslutas.");
+                    break;
+
+                default:
+                    System.out.println("Fel val. Välj ett av alternativen i menyn.");
                     break;
             }
         }
