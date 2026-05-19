@@ -7,7 +7,10 @@ package haroon.irfan.manager;
 import java.util.ArrayList;
 import java.util.Collections;
 import haroon.irfan.model.*;
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LibraryManager {
 
@@ -37,17 +40,19 @@ public class LibraryManager {
         return null;
     }
 
-    // Söker efter en användare med hjälp av email.
-    public static User findUserByEmail(ArrayList<User> users, String email) {
+    /**
+     * Söker efter användare via email med hjälp av HashMap.
+     *
+     * @param users lista med användare
+     * @param email användarens email
+     * @return hittad användare eller null
+     */
+    public static User findUserByEmail(ArrayList<User> users,
+            String email) {
 
-        for (User user : users) {
+        Map<String, User> userMap = createUserEmailMap(users);
 
-            if (user.getEmail().equalsIgnoreCase(email)) {
-                return user;
-            }
-        }
-
-        return null;
+        return userMap.get(email);
     }
 
     // Sorterar böcker efter titel.
@@ -190,4 +195,37 @@ public class LibraryManager {
         }
     }
 
+    /**
+     * Skapar en HashMap där email används som nyckel.
+     *
+     * @param users lista med användare
+     * @return map med email och User-objekt
+     */
+    public static Map<String, User> createUserEmailMap(ArrayList<User> users) {
+
+        Map<String, User> userMap = new HashMap<>();
+
+        for (User user : users) {
+            userMap.put(user.getEmail(), user);
+        }
+
+        return userMap;
+    }
+
+    /**
+     * Hämtar alla unika genrer från böckerna.
+     *
+     * @param books lista med böcker
+     * @return set med unika genrer
+     */
+    public static Set<String> getUniqueBookGenres(ArrayList<Book> books) {
+
+        Set<String> genres = new HashSet<>();
+
+        for (Book book : books) {
+            genres.add(book.getGenre());
+        }
+
+        return genres;
+    }
 }

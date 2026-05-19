@@ -107,12 +107,13 @@ public class MenuManager {
     public static void showStreamMenu() {
 
         System.out.println("\n--- Streams ---");
-        System.out.println("1. Visa böcker efter genre");
-        System.out.println("2. Visa böcker efter författare");
-        System.out.println("3. Sortera böcker efter författare");
-        System.out.println("4. Räkna böcker av författare");
-        System.out.println("5. Visa alla boktitlar");
-        System.out.println("6. Tillbaka");
+        System.out.println("1. Filtrera genre");
+        System.out.println("2. Filtrera författare");
+        System.out.println("3. Sortera författare");
+        System.out.println("4. Räkna böcker");
+        System.out.println("5. Visa titlar");
+        System.out.println("6. Visa unika genrer");
+        System.out.println("7. Tillbaka");
         System.out.print("Välj ett alternativ: ");
     }
 }

@@ -6,7 +6,7 @@ import haroon.irfan.manager.LoanManager;
 import haroon.irfan.manager.StreamManager;
 import haroon.irfan.model.*;
 import haroon.irfan.service.ApiService;
-
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -89,28 +89,24 @@ public class SubMenuHandler {
                 Book newBook = InputManager.createBook(scanner);
                 data.books.add(newBook);
                 ApiService.addBookToServer(newBook);
-                System.out.println("Boken har lagts till lokalt och på servern.");
                 break;
 
             case 2:
                 Magazine newMagazine = InputManager.createMagazine(scanner);
                 data.magazines.add(newMagazine);
                 ApiService.addMagazineToServer(newMagazine);
-                System.out.println("Tidningen har lagts till lokalt och på servern.");
                 break;
 
             case 3:
                 User newUser = InputManager.createUser(scanner);
                 data.users.add(newUser);
                 ApiService.addUserToServer(newUser);
-                System.out.println("Användaren har lagts till lokalt och på servern.");
                 break;
 
             case 4:
                 SuspendedUser suspendedUser = InputManager.createSuspendedUser(scanner);
                 data.suspendedUsers.add(suspendedUser);
                 ApiService.addSuspendedUserToServer(suspendedUser);
-                System.out.println("Användaren har blivit avstängd.");
                 break;
 
             case 5:
@@ -130,7 +126,6 @@ public class SubMenuHandler {
 
                 if (ApiService.deleteBookFromServer(bookId)) {
                     data.books.removeIf(book -> book.getId().equals(bookId));
-                    System.out.println("Boken har tagits bort lokalt och på servern.");
                 }
                 break;
 
@@ -140,7 +135,6 @@ public class SubMenuHandler {
 
                 if (ApiService.deleteMagazineFromServer(magazineId)) {
                     data.magazines.removeIf(magazine -> magazine.getId().equals(magazineId));
-                    System.out.println("Tidningen har tagits bort lokalt och på servern.");
                 }
                 break;
 
@@ -150,7 +144,6 @@ public class SubMenuHandler {
 
                 if (ApiService.deleteUserFromServer(userId)) {
                     data.users.removeIf(user -> user.getId().equals(userId));
-                    System.out.println("Användaren har tagits bort lokalt och på servern.");
                 }
                 break;
 
@@ -160,7 +153,6 @@ public class SubMenuHandler {
 
                 if (ApiService.deleteSuspendedUserFromServer(suspendedId)) {
                     data.suspendedUsers.removeIf(suspendedUser -> suspendedUser.getId().equals(suspendedId));
-                    System.out.println("Avstängningen har tagits bort lokalt och på servern.");
                 }
                 break;
 
@@ -313,50 +305,61 @@ public class SubMenuHandler {
     public static void handleStreamMenu(int streamChoice, Scanner scanner, LibraryData data) {
         switch (streamChoice) {
 
-                        case 1:
+            case 1:
 
-                            System.out.print("Ange genre: ");
-                            String genre = scanner.nextLine();
+                System.out.print("Ange genre: ");
+                String genre = scanner.nextLine();
 
-                            StreamManager.printBooksByGenre(data.books, genre);
+                StreamManager.printBooksByGenre(data.books, genre);
 
-                            break;
+                break;
 
-                        case 2:
+            case 2:
 
-                            System.out.print("Ange författare: ");
-                            String author = scanner.nextLine();
+                System.out.print("Ange författare: ");
+                String author = scanner.nextLine();
 
-                            StreamManager.printBooksByAuthor(data.books, author);
+                StreamManager.printBooksByAuthor(data.books, author);
 
-                            break;
+                break;
 
-                        case 3:
+            case 3:
 
-                            StreamManager.printBooksSortedByAuthor(data.books);
+                StreamManager.printBooksSortedByAuthor(data.books);
 
-                            break;
+                break;
 
-                        case 4:
+            case 4:
 
-                            System.out.print("Ange författare: ");
-                            String countAuthor = scanner.nextLine();
+                System.out.print("Ange författare: ");
+                String countAuthor = scanner.nextLine();
 
-                            StreamManager.countBooksByAuthor(data.books, countAuthor);
+                StreamManager.countBooksByAuthor(data.books, countAuthor);
 
-                            break;
+                break;
 
-                        case 5:
+            case 5:
 
-                            StreamManager.printBookTitles(data.books);
+                StreamManager.printBookTitles(data.books);
 
-                            break;
+                break;
 
-                        case 6:
-                            break;
+            case 6:
 
-                        default:
-                            System.out.println("Fel val.");
-                    }
+                Set<String> genres = LibraryManager.getUniqueBookGenres(data.books);
+
+                System.out.println("Unika genrer:");
+
+                for (String bookGenre : genres) {
+                    System.out.println(bookGenre);
+                }
+
+                break;
+            case 7:
+                break;
+
+            default:
+                System.out.println("Fel val.");
+        }
     }
 }

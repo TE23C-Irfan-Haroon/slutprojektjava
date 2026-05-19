@@ -8,6 +8,7 @@ import haroon.irfan.model.*;
 import haroon.irfan.service.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import haroon.irfan.service.ApiService;
 
 /**
  * Haroon Irfan
@@ -31,6 +32,7 @@ public class LoanManager implements FileStorage {
 
                 if (book.getIsAvailable()) {
                     book.setAvailable(false);
+                    ApiService.updateBookOnServer(book);
                     loans.add(new Loan(userId, bookId, "book"));
                     System.out.println("Boken har lånats ut.");
                 } else {
@@ -58,7 +60,7 @@ public class LoanManager implements FileStorage {
             if (book.getId().equals(bookId)) {
 
                 book.setAvailable(true);
-
+                ApiService.updateBookOnServer(book);
                 loans.removeIf(loan -> loan.getItemId().equals(bookId) && loan.getItemType().equals("book"));
 
                 System.out.println("Boken har lämnats tillbaka.");
@@ -80,7 +82,7 @@ public class LoanManager implements FileStorage {
                 if (magazine.getIsAvailable()) {
 
                     magazine.setAvailable(false);
-
+                    ApiService.updateMagazineOnServer(magazine);
                     loans.add(new Loan(userId, magazineId, "magazine"));
 
                     System.out.println("Tidningen har lånats ut.");
@@ -104,7 +106,7 @@ public class LoanManager implements FileStorage {
             if (magazine.getId().equals(magazineId)) {
 
                 magazine.setAvailable(true);
-
+                ApiService.updateMagazineOnServer(magazine);
                 loans.removeIf(loan -> loan.getItemId().equals(magazineId) && loan.getItemType().equals("magazine"));
 
                 System.out.println("Tidningen har lämnats tillbaka.");
@@ -126,7 +128,7 @@ public class LoanManager implements FileStorage {
                 if (media.getIsAvailable()) {
 
                     media.setAvailable(false);
-
+                    ApiService.updateMediaOnServer(media);
                     loans.add(new Loan(userId, mediaId, "media"));
 
                     System.out.println("Media har lånats ut.");
@@ -150,7 +152,7 @@ public class LoanManager implements FileStorage {
             if (media.getId().equals(mediaId)) {
 
                 media.setAvailable(true);
-
+                ApiService.updateMediaOnServer(media);
                 loans.removeIf(loan -> loan.getItemId().equals(mediaId) && loan.getItemType().equals("media"));
 
                 System.out.println("Media har lämnats tillbaka.");

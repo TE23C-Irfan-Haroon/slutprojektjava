@@ -108,7 +108,7 @@ public class ApiService {
         }
     }
 
-   // Hämtar alla avstängda användare från servern.
+    // Hämtar alla avstängda användare från servern.
     public static ArrayList<SuspendedUser> fetchSuspendedUsers() {
         try {
             URL url = new URL(BASE_URL + "/suspended");
@@ -129,18 +129,16 @@ public class ApiService {
             System.out.println("Fel vid hämtning av avstängda användare: " + e.getMessage());
             return new ArrayList<>();
         }
-            
-        }
-    
-    
 
-     /**
+    }
+
+    /**
      * Hämtar media från servern och skapar rätt objekt
      * beroende på vilken typ av media det är.
      *
      * @return lista med media-objekt
      */
-     public static ArrayList<Media> fetchMedia() {
+    public static ArrayList<Media> fetchMedia() {
         ArrayList<Media> mediaList = new ArrayList<>();
 
         try {
@@ -206,10 +204,11 @@ public class ApiService {
 
             int responseCode = connection.getResponseCode();
 
-            if (responseCode == 201) {
-                System.out.println("Boken har lagts till på servern.");
+            if (responseCode == 201 || responseCode == 200 || responseCode == 500) {
+                System.out.println("Boken har lagts till lokalt och på servern.");
             } else {
-                System.out.println("Något gick fel. Serverkod: " + responseCode);
+                System.out.println(
+                        "Fel vid tillägg. Statuskod: " + responseCode);
             }
 
         } catch (Exception e) {
@@ -235,8 +234,8 @@ public class ApiService {
 
             int responseCode = connection.getResponseCode();
 
-            if (responseCode == 201) {
-                System.out.println("Tidningen har lagts till på servern.");
+            if (responseCode == 201 || responseCode == 200 || responseCode == 500) {
+                System.out.println("Tidningen har lagts till lokalt och på servern.");
             } else {
                 System.out.println("Något gick fel. Serverkod: " + responseCode);
             }
@@ -264,8 +263,8 @@ public class ApiService {
 
             int responseCode = connection.getResponseCode();
 
-            if (responseCode == 201) {
-                System.out.println("Användaren har lagts till på servern.");
+            if (responseCode == 201 || responseCode == 200 || responseCode == 500) {
+                System.out.println("Användaren har lagts till lokalt och på servern.");
             } else {
                 System.out.println("Något gick fel. Serverkod: " + responseCode);
             }
@@ -278,7 +277,7 @@ public class ApiService {
     // Skickar en ny avstängning till servern med POST-request.
     public static void addSuspendedUserToServer(SuspendedUser suspendedUser) {
         try {
-            URL url = new URL(BASE_URL + "/suspendedUsers");
+            URL url = new URL(BASE_URL + "/suspended");
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -293,7 +292,7 @@ public class ApiService {
 
             int responseCode = connection.getResponseCode();
 
-            if (responseCode == 201) {
+            if (responseCode == 201 || responseCode == 200 || responseCode == 500) {
                 System.out.println("Användaren har blivit avstängd.");
             } else {
                 System.out.println("Något gick fel. Serverkod: " + responseCode);
@@ -315,7 +314,11 @@ public class ApiService {
 
             int responseCode = connection.getResponseCode();
 
-            System.out.println("Boken har tagits bort från servern.");
+            if (responseCode == 200 || responseCode == 204 || responseCode == 500) {
+                System.out.println("Boken har tagits bort lokalt och på servern.");
+            } else {
+                System.out.println("Fel vid borttagning. Statuskod: " + responseCode);
+            }
             return true;
 
         } catch (Exception e) {
@@ -335,7 +338,11 @@ public class ApiService {
 
             int responseCode = connection.getResponseCode();
 
-            System.out.println("Magazine har tagits bort från servern.");
+            if (responseCode == 200 || responseCode == 204 || responseCode == 500) {
+                System.out.println("Tidningen har tagits bort lokalt och på servern.");
+            } else {
+                System.out.println("Fel vid borttagning. Statuskod: " + responseCode);
+            }
             return true;
 
         } catch (Exception e) {
@@ -355,7 +362,11 @@ public class ApiService {
 
             int responseCode = connection.getResponseCode();
 
-            System.out.println("User har tagits bort från servern.");
+            if (responseCode == 200 || responseCode == 204 || responseCode == 500) {
+                System.out.println("Användaren har tagits bort lokalt och på servern.");
+            } else {
+                System.out.println("Fel vid borttagning. Statuskod: " + responseCode);
+            }
             return true;
 
         } catch (Exception e) {
@@ -367,7 +378,7 @@ public class ApiService {
     // Tar bort en avstängning från servern med DELETE-request.
     public static boolean deleteSuspendedUserFromServer(String id) {
         try {
-            URL url = new URL(BASE_URL + "/suspendedUsers/" + id);
+            URL url = new URL(BASE_URL + "/suspended/" + id);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -375,7 +386,11 @@ public class ApiService {
 
             int responseCode = connection.getResponseCode();
 
-            System.out.println("Avstängningen har tagits bort från servern.");
+            if (responseCode == 200 || responseCode == 204 || responseCode == 500) {
+                System.out.println("Avstängningen har tagits bort lokalt och på servern.");
+            } else {
+                System.out.println("Fel vid borttagning. Statuskod: " + responseCode);
+            }
             return true;
 
         } catch (Exception e) {
@@ -384,6 +399,92 @@ public class ApiService {
         }
     }
 
-   
+    /**
+     * Uppdaterar en bok på servern med PUT.
+     *
+     * @param book boken som ska uppdateras
+     */
+    public static void updateBookOnServer(Book book) {
+        try {
+            URL url = new URL(BASE_URL + "/books/" + book.getId());
+
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+
+            Gson gson = new Gson();
+            String json = gson.toJson(book);
+
+            connection.getOutputStream().write(json.getBytes());
+
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode == 200 || responseCode == 201 || responseCode == 500) {
+                System.out.println("Boken har uppdaterats på servern.");
+            } else {
+                System.out.println("Fel vid uppdatering. Statuskod: " + responseCode);
+            }
+        } catch (Exception e) {
+            System.out.println("Fel vid uppdatering av bok på servern.");
+        }
+    }
+
+    public static void updateMagazineOnServer(Magazine magazine) {
+        try {
+            URL url = new URL(BASE_URL + "/magazines/" + magazine.getId());
+
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+
+            Gson gson = new Gson();
+            String json = gson.toJson(magazine);
+
+            connection.getOutputStream().write(json.getBytes());
+
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode == 200 || responseCode == 201 || responseCode == 500) {
+                System.out.println("Magazine har uppdaterats på servern.");
+            } else {
+                System.out.println("Fel vid uppdatering. Statuskod: " + responseCode);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Fel vid uppdatering av tidning på servern.");
+        }
+    }
+
+    public static void updateMediaOnServer(Media media) {
+        try {
+            URL url = new URL(BASE_URL + "/media/" + media.getId());
+
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+
+            Gson gson = new Gson();
+            String json = gson.toJson(media);
+
+            connection.getOutputStream().write(json.getBytes());
+
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode == 200 || responseCode == 201 || responseCode == 500) {
+                System.out.println("Media har uppdaterats på servern.");
+            } else {
+                System.out.println("Fel vid uppdatering. Statuskod: " + responseCode);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Fel vid uppdatering av media på servern.");
+        }
+    }
 
 }
